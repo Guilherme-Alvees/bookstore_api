@@ -10,6 +10,8 @@ const db_app = new pg.Pool({
   password: process.env.PGPASSWORD,
   port: process.env.PGPORT,
   ssl: { rejectUnauthorized: false },
+  max: 10, // Pool size
+  idleTimeoutMillis: 30000,
 });
 
 db_app
