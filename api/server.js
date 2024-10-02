@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import allBooksRoutes from "../api/src/routes/bookRoutes.js";
+import allUsersRoutes from "../api/src/routes/userRoutes.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Word"));
 
-app.use("/api", allBooksRoutes); // Usa as rotas na URL /api
+app.use("/api", allBooksRoutes); // Usa as rotas na URL /api/livros
+app.use("/api", allUsersRoutes); // Usa as rotas na URL /api/users
 
 app.listen(port, () => console.log(`✅ Server running on the port ${port}`));
