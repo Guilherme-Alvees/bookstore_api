@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import allBooksRoutes from "../api/src/routes/bookRoutes.js";
 import allUsersRoutes from "../api/src/routes/userRoutes.js";
+//import allOrdersRoutes from "../api/src/routes/ordersRoutes.js";
 
 dotenv.config();
 
@@ -15,7 +16,8 @@ app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Word"));
 
-app.use("/api", allBooksRoutes); // URL: /api/books; GET
-app.use("/api", allUsersRoutes); // URL: /api/users; GET
+app.use("/api", allBooksRoutes);
+app.use("/api", allUsersRoutes);
+//app.use("/api", allOrdersRoutes);
 
 app.listen(port, () => console.log(`✅ Server running on the port ${port}`));
