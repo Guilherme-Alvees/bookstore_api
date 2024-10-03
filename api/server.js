@@ -15,7 +15,7 @@ app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Word"));
 
-app.use("/api", allBooksRoutes); // Usa as rotas na URL /api/livros
-app.use("/api", allUsersRoutes); // Usa as rotas na URL /api/users
+app.use("/api", allBooksRoutes); // URL: /api/books; GET
+app.use("/api", allUsersRoutes); // URL: /api/users; GET
 
 app.listen(port, () => console.log(`✅ Server running on the port ${port}`));

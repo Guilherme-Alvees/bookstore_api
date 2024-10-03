@@ -2,25 +2,24 @@ import bookModel from "../models/bookModel.js";
 
 class bookController {
   // Método para listar todos os livros
-  static async listarLivros(req, res) {
+  static async getAllBooks(req, res) {
     try {
-      const livros = await bookModel.listarLivros();
+      const books = await bookModel.getAllBooks();
 
       // Verifica se existem livros retornados
-      if (!livros || livros.length === 0) {
-        return res.status(404).json({ error: "Nenhum livro encontrado." });
+      if (!books || books.length === 0) {
+        return res.status(404).json({ error: "No books found." });
       }
 
       // Se houver livros, retorna a lista
-      res.json(livros);
+      res.json(books);
     } catch (error) {
-      console.error("Erro ao listar livros: ", error); // Log do erro para depuração
+      console.error("Error listing books: ", error); // Log do erro para depuração
 
       // Tratamento de erro de conexão com o banco de dados
       if (error.code === "ECONNREFUSED" || error.code === "ENOTFOUND") {
         return res.status(503).json({
-          error:
-            "Serviço de banco de dados indisponível. Tente novamente mais tarde.",
+          error: "Database service unavailable. Please try again later.",
         });
       }
 
@@ -28,17 +27,14 @@ class bookController {
       if (error.code === "42P01") {
         // Exemplo: erro de tabela inexistente
         return res.status(400).json({
-          error:
-            "Erro na estrutura do banco de dados. Verifique se a tabela existe.",
+          error: "Error in the database structure. Check if the table exists.",
         });
       }
 
       // Para outros erros inesperados
-      res
-        .status(500)
-        .json({
-          error: "Erro interno do servidor. Por favor, tente novamente.",
-        });
+      res.status(500).json({
+        error: "Internal server error. Please try again.",
+      });
     }
   }
 }

@@ -15,7 +15,7 @@ const validateEnvVariables = () => {
   requiredEnv.forEach((envVar) => {
     if (!process.env[envVar]) {
       console.error(
-        `⛔ Erro: A variável de ambiente ${envVar} não está definida!`
+        `⛔ Error: The environment variable ${envVar} is not defined!`
       );
       process.exit(1); // Finaliza o processo se uma variável importante não estiver definida
     }
@@ -47,15 +47,15 @@ const connectWithRetry = (retries = 5, delay = 3000) => {
     .catch((err) => {
       if (retries === 0) {
         console.error(
-          "⛔ Erro crítico: Falha ao conectar ao banco de dados após várias tentativas."
+          "⛔ Critical error: Failed to connect to database after multiple attempts."
         );
         console.error("Erro:", err.message || err); // Log do erro detalhado
         process.exit(1); // Finaliza o processo em caso de falha persistente
       } else {
         console.warn(
-          `⚠️ Erro ao conectar ao banco. Tentando novamente em ${
+          `⛔ Error connecting to the bank. Trying again at ${
             delay / 1000
-          } segundos... (${retries} tentativas restantes)`
+          } seconds... (${retries} remaining attempts)`
         );
         setTimeout(() => connectWithRetry(retries - 1, delay), delay);
       }
@@ -66,7 +66,7 @@ connectWithRetry(); // Inicia a tentativa de conexão com o banco
 
 // Tratamento de erro quando há algum problema no pool de conexões
 db_app.on("error", (err) => {
-  console.error("⛔ Erro no pool de conexões: ", err.message || err);
+  console.error("⛔ Connection pool error: ", err.message || err);
   process.exit(1); // Finaliza o processo em caso de erro crítico no pool
 });
 
